@@ -321,6 +321,14 @@
       border-bottom: 1px solid #e5e7eb;
     }
 
+    .section-sub-label {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #92400e;
+      margin: 14px 0 8px;
+      padding-left: 4px;
+    }
+
     .counter-row {
       display: flex;
       justify-content: space-between;
@@ -400,6 +408,16 @@
       border: 2px solid #86efac;
     }
 
+    .names-panel.lodging-panel {
+      background: #fffbeb;
+      border: 2px solid #fcd34d;
+    }
+
+    .names-panel.car-need-panel {
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+    }
+
     .names-header {
       display: flex;
       justify-content: space-between;
@@ -417,6 +435,8 @@
     .adults-panel .names-title { color: #991b1b; }
     .kids-panel .names-title { color: #1e40af; }
     .chairs-panel .names-title { color: #166534; }
+    .lodging-panel .names-title,
+    .car-need-panel .names-title { color: #92400e; }
 
     .names-badge {
       font-size: 0.82rem;
@@ -429,6 +449,8 @@
     .adults-panel .names-badge { color: #991b1b; border: 1px solid #fca5a5; }
     .kids-panel .names-badge { color: #1e40af; border: 1px solid #93c5fd; }
     .chairs-panel .names-badge { color: #166534; border: 1px solid #86efac; }
+    .lodging-panel .names-badge,
+    .car-need-panel .names-badge { color: #92400e; border: 1px solid #fcd34d; }
 
     .names-badge.done {
       background: #dcfce7;
@@ -461,6 +483,8 @@
     .adults-panel .name-slot { border: 1.5px solid #fca5a5; }
     .kids-panel .name-slot { border: 1.5px solid #93c5fd; }
     .chairs-panel .name-slot { border: 1.5px solid #86efac; }
+    .lodging-panel .name-slot,
+    .car-need-panel .name-slot { border: 1.5px solid #f59e0b; }
 
     .name-slot-num {
       font-size: 0.85rem;
@@ -472,6 +496,8 @@
     .adults-panel .name-slot-num { color: #b91c1c; }
     .kids-panel .name-slot-num { color: #1d4ed8; }
     .chairs-panel .name-slot-num { color: #15803d; }
+    .lodging-panel .name-slot-num,
+    .car-need-panel .name-slot-num { color: #b45309; }
 
     .name-slot input {
       width: 100%;
@@ -483,167 +509,6 @@
       color: var(--text);
       background: transparent;
       padding: 4px 2px;
-    }
-
-    .field-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    .field-box {
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    .field-box label {
-      display: block;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #374151;
-      margin-bottom: 6px;
-    }
-
-    .field-box input,
-    .field-box select {
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      min-width: 0;
-      padding: 12px 12px;
-      border: 2px solid #9ca3af;
-      border-radius: 12px;
-      font-size: 1rem;
-      background: #fff;
-      color: var(--text);
-    }
-
-    .field-box input:focus,
-    .field-box select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
-    }
-
-    .support-roster-box {
-      background: #fffbeb;
-      border: 2px solid #f59e0b;
-      border-radius: 14px;
-      padding: 12px;
-      margin-top: 10px;
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    .support-roster-title {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: #92400e;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .roster-input-row {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 100%;
-    }
-
-    @media (min-width: 520px) {
-      .roster-input-row {
-        flex-direction: row;
-      }
-    }
-
-    .roster-input-row input {
-      width: 100%;
-      flex: 1;
-      min-width: 0;
-      padding: 10px 12px;
-      border: 2px solid #d97706;
-      border-radius: 10px;
-      font-size: 1rem;
-      background: #fff;
-      color: var(--text);
-    }
-
-    .roster-input-row input:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    .btn-add-person {
-      background: #d97706;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 11px 16px;
-      font-size: 0.98rem;
-      font-weight: 800;
-      cursor: pointer;
-      white-space: nowrap;
-      width: 100%;
-    }
-
-    @media (min-width: 520px) {
-      .btn-add-person {
-        width: auto;
-      }
-    }
-
-    .btn-add-person:active {
-      background: #b45309;
-    }
-
-    .roster-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .roster-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #fff;
-      border: 2px solid #f59e0b;
-      color: #78350f;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      max-width: 100%;
-    }
-
-    .roster-tag button {
-      background: #fee2e2;
-      color: #b91c1c;
-      border: none;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      font-size: 0.9rem;
-      font-weight: 900;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      flex-shrink: 0;
-    }
-
-    .roster-empty-hint {
-      font-size: 0.86rem;
-      color: #92400e;
-      margin-top: 8px;
-      opacity: 0.9;
     }
 
     .bottom-bar {
@@ -705,7 +570,7 @@
 
   <header>
     <h1>🧨 2027 農曆初二回娘家<br>家族聚會統計表</h1>
-    <p>請先點選您所屬的家庭，再填寫晚餐與住宿需求</p>
+    <p>請先點選您所屬的家庭，再填寫晚餐、車位與住宿需求</p>
     <div id="connStatus" class="status-bar">⏳ 正在連線即時資料庫...</div>
   </header>
 
@@ -755,12 +620,12 @@
           adultNames: [],
           kidNames: [],
           chairNames: [],
-          lodgingType: "未填",
-          lodgingNote: "",
-          lodgingPeople: [],
-          carType: "未填",
-          carNote: "",
-          carPeople: []
+          carsCount: 0,
+          emptySeats: 0,
+          needCarsCount: 0,
+          needCarNames: [],
+          lodgingNeedCount: 0,
+          lodgingNeedNames: []
         };
       }
 
@@ -787,11 +652,19 @@
 
       function normalizeDay(raw) {
         const d = Object.assign({}, emptyDay(), raw || {});
+        d.adults = Number(d.adults || 0);
+        d.kids = Number(d.kids || 0);
+        d.chairs = Number(d.chairs || 0);
+        d.carsCount = Number(d.carsCount || 0);
+        d.emptySeats = Number(d.emptySeats || 0);
+        d.needCarsCount = Number(d.needCarsCount || 0);
+        d.lodgingNeedCount = Number(d.lodgingNeedCount || 0);
+
         d.adultNames = Array.isArray(d.adultNames) ? d.adultNames : [];
         d.kidNames = Array.isArray(d.kidNames) ? d.kidNames : [];
         d.chairNames = Array.isArray(d.chairNames) ? d.chairNames : [];
-        d.lodgingPeople = Array.isArray(d.lodgingPeople) ? d.lodgingPeople : [];
-        d.carPeople = Array.isArray(d.carPeople) ? d.carPeople : [];
+        d.needCarNames = Array.isArray(d.needCarNames) ? d.needCarNames : [];
+        d.lodgingNeedNames = Array.isArray(d.lodgingNeedNames) ? d.lodgingNeedNames : [];
         return d;
       }
 
@@ -866,7 +739,9 @@
         const listMap = {
           adults: "adultNames",
           kids: "kidNames",
-          chairs: "chairNames"
+          chairs: "chairNames",
+          needCarsCount: "needCarNames",
+          lodgingNeedCount: "lodgingNeedNames"
         };
         const arrKey = listMap[field];
         if (arrKey) {
@@ -904,44 +779,6 @@
         pushToCloud();
       }
 
-      function updateField(famId, dayKey, field, value) {
-        stateData[famId][dayKey][field] = value;
-        renderAll();
-        pushToCloud();
-      }
-
-      function addSupportPerson(famId, dayKey, listField) {
-        const inputId = famId + "_" + dayKey + "_" + listField + "_input";
-        const inputEl = document.getElementById(inputId);
-        if (!inputEl) return;
-        const raw = inputEl.value.trim();
-        if (!raw) {
-          showToast("請先輸入姓名再新增");
-          return;
-        }
-
-        const names = raw.split(/[、,，\s]+/).map(function (s) { return s.trim(); }).filter(Boolean);
-        const targetList = stateData[famId][dayKey][listField] || [];
-        names.forEach(function (name) {
-          if (targetList.indexOf(name) === -1) {
-            targetList.push(name);
-          }
-        });
-        stateData[famId][dayKey][listField] = targetList;
-        inputEl.value = "";
-        renderAll();
-        pushToCloud();
-        showToast("已新增：" + names.join("、"));
-      }
-
-      function removeSupportPerson(famId, dayKey, listField, index) {
-        const targetList = stateData[famId][dayKey][listField] || [];
-        targetList.splice(index, 1);
-        stateData[famId][dayKey][listField] = targetList;
-        renderAll();
-        pushToCloud();
-      }
-
       function switchSummaryDay(dayKey) {
         activeSummaryDay = dayKey;
         document.querySelectorAll(".day-tab").forEach(function (btn) {
@@ -960,14 +797,15 @@
         let totalAdults = 0;
         let totalKids = 0;
         let totalChairs = 0;
-        let lodgingNeedCount = 0;
-        let carNeedCount = 0;
+
+        let totalCars = 0;
+        let totalEmptySeats = 0;
+        let totalNeedCars = 0;
+        let totalLodgingNeed = 0;
 
         const dinnerLines = [];
-        const lodgingLines = [];
         const carLines = [];
-        let totalLodgingPeople = 0;
-        let totalCarPeople = 0;
+        const lodgingLines = [];
 
         FAMILIES.forEach(function (f) {
           const d = stateData[f.id][activeSummaryDay];
@@ -975,9 +813,19 @@
           const kCnt = Number(d.kids || 0);
           const cCnt = Number(d.chairs || 0);
 
+          const carsCnt = Number(d.carsCount || 0);
+          const seatsCnt = Number(d.emptySeats || 0);
+          const needCarsCnt = Number(d.needCarsCount || 0);
+          const lodgCnt = Number(d.lodgingNeedCount || 0);
+
           totalAdults += aCnt;
           totalKids += kCnt;
           totalChairs += cCnt;
+
+          totalCars += carsCnt;
+          totalEmptySeats += seatsCnt;
+          totalNeedCars += needCarsCnt;
+          totalLodgingNeed += lodgCnt;
 
           if (aCnt + kCnt + cCnt > 0) {
             const aNames = getActiveNames(d.adultNames, aCnt);
@@ -992,22 +840,24 @@
             dinnerLines.push('<div class="summary-list-item">• <strong>' + escapeHtml(f.short) + "</strong>：" + escapeHtml(parts.join("；")) + "</div>");
           }
 
-          if (d.lodgingType === "需要安排") {
-            lodgingNeedCount += 1;
-            const names = d.lodgingPeople || [];
-            totalLodgingPeople += names.length;
-            const nameStr = names.length > 0 ? names.join("、") : "尚未填寫名單";
-            const noteStr = d.lodgingNote ? "（" + d.lodgingNote + "）" : "";
-            lodgingLines.push('<div class="summary-list-item">• <strong>' + escapeHtml(f.short) + "</strong>：" + escapeHtml(nameStr + noteStr) + "</div>");
+          if (carsCnt > 0 || seatsCnt > 0 || needCarsCnt > 0) {
+            const needCarNames = getActiveNames(d.needCarNames, needCarsCnt);
+            const cParts = [];
+            cParts.push("開" + carsCnt + "台車");
+            cParts.push("空位" + seatsCnt + "個");
+            if (needCarsCnt > 0) {
+              cParts.push("需求" + needCarsCnt + "個車位（" + (needCarNames.length ? needCarNames.join("、") : "未填姓名") + "）");
+            }
+            carLines.push('<div class="summary-list-item">• <strong>' + escapeHtml(f.short) + "</strong>：" + escapeHtml(cParts.join("、")) + "</div>");
           }
 
-          if (d.carType === "需要車位") {
-            carNeedCount += 1;
-            const names = d.carPeople || [];
-            totalCarPeople += names.length;
-            const nameStr = names.length > 0 ? names.join("、") : "尚未填寫名單";
-            const noteStr = d.carNote ? "（" + d.carNote + "）" : "";
-            carLines.push('<div class="summary-list-item">• <strong>' + escapeHtml(f.short) + "</strong>：" + escapeHtml(nameStr + noteStr) + "</div>");
+          if (lodgCnt > 0) {
+            const lodgNames = getActiveNames(d.lodgingNeedNames, lodgCnt);
+            lodgingLines.push(
+              '<div class="summary-list-item">• <strong>' + escapeHtml(f.short) + "</strong>：" +
+              escapeHtml("住宿需求 " + lodgCnt + " 人（" + (lodgNames.length ? lodgNames.join("、") : "未填姓名") + "）") +
+              "</div>"
+            );
           }
         });
 
@@ -1018,22 +868,22 @@
           '<div class="stat-box">' +
             '<div class="stat-label">晚餐總人數</div>' +
             '<div class="stat-value">' + totalPeople + " 位</div>" +
-            '<div class="stat-sub">' + totalAdults + " 大 " + totalKids + " 小</div>" +
+            '<div class="stat-sub">' + totalAdults + " 大 " + totalKids + " 小（約" + suggestedTables + "桌）</div>" +
           "</div>" +
           '<div class="stat-box">' +
-            '<div class="stat-label">兒童座椅／桌數</div>' +
+            '<div class="stat-label">兒童座椅</div>' +
             '<div class="stat-value">' + totalChairs + " 張</div>" +
-            '<div class="stat-sub">約 ' + suggestedTables + " 桌（10人/桌）</div>" +
+            '<div class="stat-sub">不佔一般餐椅</div>' +
           "</div>" +
           '<div class="stat-box">' +
-            '<div class="stat-label">需安排住宿</div>' +
-            '<div class="stat-value">' + lodgingNeedCount + " 戶</div>" +
-            '<div class="stat-sub">已登記 ' + totalLodgingPeople + " 人</div>" +
+            '<div class="stat-label">車輛／空位／需求</div>' +
+            '<div class="stat-value">' + totalCars + " 車 / " + totalEmptySeats + " 空位</div>" +
+            '<div class="stat-sub">需求車位 ' + totalNeedCars + " 個</div>" +
           "</div>" +
           '<div class="stat-box">' +
-            '<div class="stat-label">需安排車位</div>' +
-            '<div class="stat-value">' + carNeedCount + " 戶</div>" +
-            '<div class="stat-sub">已登記 ' + totalCarPeople + " 人</div>" +
+            '<div class="stat-label">住宿需求人數</div>' +
+            '<div class="stat-value">' + totalLodgingNeed + " 人</div>" +
+            '<div class="stat-sub">需安排住宿人員</div>' +
           "</div>";
 
         document.getElementById("summaryLists").innerHTML =
@@ -1042,12 +892,12 @@
             (dinnerLines.length > 0 ? dinnerLines.join("") : '<div class="summary-list-empty">目前尚未登記晚餐出席人數</div>') +
           "</div>" +
           '<div class="summary-list-box">' +
-            '<div class="summary-list-title">🏠 當日需安排住宿名單（共 ' + totalLodgingPeople + " 位）</div>" +
-            (lodgingLines.length > 0 ? lodgingLines.join("") : '<div class="summary-list-empty">目前無需安排住宿人員</div>') +
+            '<div class="summary-list-title">🚗 當日車輛與車位需求（共開 ' + totalCars + " 台車、空位 " + totalEmptySeats + " 個、需求 " + totalNeedCars + " 個車位）</div>" +
+            (carLines.length > 0 ? carLines.join("") : '<div class="summary-list-empty">目前尚未登記車輛或車位需求</div>') +
           "</div>" +
           '<div class="summary-list-box">' +
-            '<div class="summary-list-title">🚗 當日需支援車位名單（共 ' + totalCarPeople + " 位）</div>" +
-            (carLines.length > 0 ? carLines.join("") : '<div class="summary-list-empty">目前無需支援車位人員</div>') +
+            '<div class="summary-list-title">🏠 當日住宿需求名單（共 ' + totalLodgingNeed + " 人）</div>" +
+            (lodgingLines.length > 0 ? lodgingLines.join("") : '<div class="summary-list-empty">目前無住宿需求人員</div>') +
           "</div>";
       }
 
@@ -1064,37 +914,6 @@
             "</button>"
           );
         }).join("");
-      }
-
-      function renderSupportRoster(famId, dayKey, listField, titleText, placeholderText) {
-        const list = stateData[famId][dayKey][listField] || [];
-        const inputId = famId + "_" + dayKey + "_" + listField + "_input";
-
-        const tagsHtml = list.length > 0
-          ? '<div class="roster-tags">' +
-              list.map(function (person, idx) {
-                return (
-                  '<span class="roster-tag">' +
-                    escapeHtml(person) +
-                    '<button type="button" title="移除" data-action="removePerson" data-fam="' + famId + '" data-day="' + dayKey + '" data-list="' + listField + '" data-idx="' + idx + '">✕</button>' +
-                  "</span>"
-                );
-              }).join("") +
-            "</div>"
-          : '<div class="roster-empty-hint">尚未新增名單，請輸入姓名後點選「＋ 新增人員」</div>';
-
-        return (
-          '<div class="support-roster-box">' +
-            '<div class="support-roster-title">' +
-              "<span>✍️ " + escapeHtml(titleText) + "（已填 " + list.length + " 位）</span>" +
-            "</div>" +
-            '<div class="roster-input-row">' +
-              '<input type="text" id="' + inputId + '" data-roster-input="1" data-fam="' + famId + '" data-day="' + dayKey + '" data-list="' + listField + '" placeholder="' + escapeHtml(placeholderText) + '" />' +
-              '<button type="button" class="btn-add-person" data-action="addPerson" data-fam="' + famId + '" data-day="' + dayKey + '" data-list="' + listField + '">＋ 新增人員</button>' +
-            "</div>" +
-            tagsHtml +
-          "</div>"
-        );
       }
 
       function renderCategoryNamesPanel(famId, dayKey, countField, arrKey, panelClass, titleText, slotPrefix, placeholderText) {
@@ -1133,8 +952,6 @@
 
       function renderDayBlock(famId, dayKey, dayTitle) {
         const d = stateData[famId][dayKey];
-        const showLodgingRoster = d.lodgingType === "需要安排";
-        const showCarRoster = d.carType === "需要車位";
 
         return (
           '<div class="day-block">' +
@@ -1170,39 +987,48 @@
             "</div>" +
             renderCategoryNamesPanel(famId, dayKey, "chairs", "chairNames", "chairs-panel", "🪑 兒童座椅名單", "座椅", "輸入寶寶姓名（例：小寶）") +
 
-            '<div class="field-grid">' +
-              '<div class="field-box">' +
-                "<label>🏠 住宿狀態</label>" +
-                '<select data-bind="field" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="lodgingType">' +
-                  '<option value="未填" ' + (d.lodgingType === "未填" ? "selected" : "") + ">未填</option>" +
-                  '<option value="自理" ' + (d.lodgingType === "自理" ? "selected" : "") + ">自理</option>" +
-                  '<option value="需要安排" ' + (d.lodgingType === "需要安排" ? "selected" : "") + ">需要安排</option>" +
-                  '<option value="可提供" ' + (d.lodgingType === "可提供" ? "selected" : "") + ">可提供</option>" +
-                "</select>" +
-                (showLodgingRoster ? renderSupportRoster(famId, dayKey, "lodgingPeople", "需安排住宿人員名單", "輸入姓名，例：大阿姨、表妹") : "") +
-              "</div>" +
+            '<div class="section-sub-label">🚗 車位統計與需求</div>' +
 
-              '<div class="field-box">' +
-                "<label>🏠 住宿補充（幾大幾小／房型）</label>" +
-                '<input type="text" value="' + escapeHtml(d.lodgingNote) + '" placeholder="例：需2大1小 或 提供四樓" data-bind="field" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="lodgingNote" />' +
-              "</div>" +
-
-              '<div class="field-box">' +
-                "<label>🚗 汽車座位狀態</label>" +
-                '<select data-bind="field" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="carType">' +
-                  '<option value="未填" ' + (d.carType === "未填" ? "selected" : "") + ">未填</option>" +
-                  '<option value="自理" ' + (d.carType === "自理" ? "selected" : "") + ">自理</option>" +
-                  '<option value="需要車位" ' + (d.carType === "需要車位" ? "selected" : "") + ">需要車位</option>" +
-                  '<option value="可支援" ' + (d.carType === "可支援" ? "selected" : "") + ">可支援</option>" +
-                "</select>" +
-                (showCarRoster ? renderSupportRoster(famId, dayKey, "carPeople", "需支援車位人員名單", "輸入姓名，例：三阿姨、表弟") : "") +
-              "</div>" +
-
-              '<div class="field-box">' +
-                "<label>🚗 車位補充（缺幾位／可載幾人）</label>" +
-                '<input type="text" value="' + escapeHtml(d.carNote) + '" placeholder="例：缺2位 或 可多載3人" data-bind="field" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="carNote" />' +
+            '<div class="counter-row">' +
+              '<span class="counter-title">開幾台車</span>' +
+              '<div class="stepper">' +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="carsCount" data-delta="-1">－</button>' +
+                "<span>" + d.carsCount + "</span>" +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="carsCount" data-delta="1">＋</button>' +
               "</div>" +
             "</div>" +
+
+            '<div class="counter-row">' +
+              '<span class="counter-title">有幾個空位</span>' +
+              '<div class="stepper">' +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="emptySeats" data-delta="-1">－</button>' +
+                "<span>" + d.emptySeats + "</span>" +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="emptySeats" data-delta="1">＋</button>' +
+              "</div>" +
+            "</div>" +
+
+            '<div class="counter-row">' +
+              '<span class="counter-title">需求幾個車位</span>' +
+              '<div class="stepper">' +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="needCarsCount" data-delta="-1">－</button>' +
+                "<span>" + d.needCarsCount + "</span>" +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="needCarsCount" data-delta="1">＋</button>' +
+              "</div>" +
+            "</div>" +
+            renderCategoryNamesPanel(famId, dayKey, "needCarsCount", "needCarNames", "car-need-panel", "🚗 需求車位姓名", "需求", "輸入需車位姓名") +
+
+            '<div class="section-sub-label">🏠 住宿需求</div>' +
+
+            '<div class="counter-row">' +
+              '<span class="counter-title">有幾個人有住宿需求</span>' +
+              '<div class="stepper">' +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="lodgingNeedCount" data-delta="-1">－</button>' +
+                "<span>" + d.lodgingNeedCount + "</span>" +
+                '<button type="button" data-action="step" data-fam="' + famId + '" data-day="' + dayKey + '" data-field="lodgingNeedCount" data-delta="1">＋</button>' +
+              "</div>" +
+            "</div>" +
+            renderCategoryNamesPanel(famId, dayKey, "lodgingNeedCount", "lodgingNeedNames", "lodging-panel", "🏠 住宿需求姓名", "住宿", "輸入住宿需求姓名") +
+
           "</div>"
         );
       }
@@ -1242,21 +1068,25 @@
         if (cCnt > 0) dinnerDetails.push("兒椅" + cCnt + (cNames.length ? "[" + cNames.join("、") + "]" : ""));
         const dinnerText = dinnerDetails.length > 0 ? "（" + dinnerDetails.join("／") + "）" : "";
 
-        const lodgingExtra = [];
-        if (d.lodgingType === "需要安排" && (d.lodgingPeople || []).length > 0) {
-          lodgingExtra.push("名單：" + d.lodgingPeople.join("、"));
-        }
-        if (d.lodgingNote) lodgingExtra.push(d.lodgingNote);
-        const lodgingText = lodgingExtra.length > 0 ? d.lodgingType + "（" + lodgingExtra.join("；") + "）" : d.lodgingType;
+        const carsCnt = Number(d.carsCount || 0);
+        const seatsCnt = Number(d.emptySeats || 0);
+        const needCarsCnt = Number(d.needCarsCount || 0);
+        const needCarNames = getActiveNames(d.needCarNames, needCarsCnt);
 
-        const carExtra = [];
-        if (d.carType === "需要車位" && (d.carPeople || []).length > 0) {
-          carExtra.push("名單：" + d.carPeople.join("、"));
+        const carParts = ["開" + carsCnt + "台車", "空位" + seatsCnt + "個"];
+        if (needCarsCnt > 0) {
+          carParts.push("需求" + needCarsCnt + "個車位" + (needCarNames.length ? "[" + needCarNames.join("、") + "]" : ""));
+        } else {
+          carParts.push("需求0個車位");
         }
-        if (d.carNote) carExtra.push(d.carNote);
-        const carText = carExtra.length > 0 ? d.carType + "（" + carExtra.join("；") + "）" : d.carType;
 
-        return "* " + dayLabel + "：晚餐 " + total + "位" + dinnerText + "｜住宿：" + lodgingText + "｜車位：" + carText;
+        const lodgCnt = Number(d.lodgingNeedCount || 0);
+        const lodgNames = getActiveNames(d.lodgingNeedNames, lodgCnt);
+        const lodgingText = lodgCnt > 0
+          ? "需求" + lodgCnt + "人" + (lodgNames.length ? "（" + lodgNames.join("、") + "）" : "")
+          : "0人";
+
+        return "* " + dayLabel + "：晚餐 " + total + "位" + dinnerText + "｜車位：" + carParts.join("、") + "｜住宿：" + lodgingText;
       }
 
       function copyLineText() {
@@ -1322,10 +1152,6 @@
           switchFamily(btn.dataset.fam);
         } else if (action === "step") {
           changeCount(btn.dataset.fam, btn.dataset.day, btn.dataset.field, Number(btn.dataset.delta));
-        } else if (action === "addPerson") {
-          addSupportPerson(btn.dataset.fam, btn.dataset.day, btn.dataset.list);
-        } else if (action === "removePerson") {
-          removeSupportPerson(btn.dataset.fam, btn.dataset.day, btn.dataset.list, Number(btn.dataset.idx));
         } else if (action === "copyLine") {
           copyLineText();
         }
@@ -1343,26 +1169,6 @@
             Number(target.dataset.idx),
             target.value
           );
-        } else if (target.dataset.bind === "field" && target.tagName === "INPUT") {
-          stateData[target.dataset.fam][target.dataset.day][target.dataset.field] = target.value;
-          renderSummary();
-          pushToCloud();
-        }
-      });
-
-      document.addEventListener("change", function (e) {
-        const target = e.target;
-        if (!target || !target.dataset) return;
-        if (target.dataset.bind === "field" && target.tagName === "SELECT") {
-          updateField(target.dataset.fam, target.dataset.day, target.dataset.field, target.value);
-        }
-      });
-
-      document.addEventListener("keydown", function (e) {
-        const target = e.target;
-        if (target && target.dataset && target.dataset.rosterInput === "1" && e.key === "Enter") {
-          e.preventDefault();
-          addSupportPerson(target.dataset.fam, target.dataset.day, target.dataset.list);
         }
       });
 
