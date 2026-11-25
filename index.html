@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2027 農曆初二回娘家｜家族聚會統計表</title>
+  <style>
+    :root {
+      --bg: #fdf8f2;
+      --card: #ffffff;
+      --primary: #b91c1c;
+      --primary-dark: #991b1b;
+      --gold: #d97706;
+      --gold-light: #fef3c7;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #d1d5db;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    html {
+      font-size: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      padding-bottom: 108px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #991b1b, #b91c1c 60%, #b45309);
+      color: #fff;
+      padding: 22px 16px 24px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(153, 27, 27, 0.2);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+      letter-spacing: 0.5px;
+      line-height: 1.35;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1rem;
+      opacity: 0.95;
+    }
+
+    .status-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.22);
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    .container {
+      max-width: 780px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* 總覽區塊 */
+    .summary-card {
+      background: var(--card);
+      border: 2px solid #f59e0b;
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .summary-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .day-tabs {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    @media (min-width: 520px) {
+      .day-tabs {
+        width: auto;
+      }
+    }
+
+    .day-tab {
+      flex: 1;
+      border: 2px solid var(--border);
+      background: #f9fafb;
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .day-tab.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .stat-box {
+      background: #fffbeb;
+      border: 1.5px solid #fcd34d;
+      border-radius: 14px;
+      padding: 12px 10px;
+      text-align: center;
+      min-width: 0;
+    }
+
+    .stat-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+      margin: 4px 0 2px;
+    }
+
+    .stat-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* 總覽具名清單 */
+    .summary-lists {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .summary-list-box {
+      background: #fefce8;
+      border: 1.5px solid #fde047;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.92rem;
+    }
+
+    .summary-list-box.dinner-box {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .summary-list-title {
+      font-weight: 800;
+      color: #854d0e;
+      margin-bottom: 6px;
+      font-size: 0.96rem;
+    }
+
+    .summary-list-box.dinner-box .summary-list-title {
+      color: #991b1b;
+    }
+
+    .summary-list-item {
+      margin-bottom: 6px;
+      color: #374151;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+
+    .summary-list-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .summary-list-empty {
+      color: #6b7280;
+      font-size: 0.88rem;
+    }
+
+    /* 家庭分頁導覽 */
+    .family-nav-section {
+      margin-bottom: 14px;
+    }
+
+    .family-nav-hint {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .family-tabs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (min-width: 560px) {
+      .family-tabs {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .family-tab-btn {
+      border: 2px solid #d1d5db;
+      background: #fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 12px 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+      min-width: 0;
+      word-break: break-word;
+    }
+
+    .family-tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary-dark);
+      box-shadow: 0 4px 10px rgba(185, 28, 28, 0.25);
+    }
+
+    .family-tab-sub {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 3px;
+      opacity: 0.88;
+    }
+
+    /* 單一家庭卡片 */
+    .family-card {
+      background: var(--card);
+      border: 2px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 18px 14px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .family-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px dashed #e5e7eb;
+      flex-wrap: wrap;
+    }
+
+    .family-name {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--primary-dark);
+    }
+
+    .sync-btn {
+      border: 2px solid #d97706;
+      background: var(--gold-light);
+      color: #92400e;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    @media (min-width: 520px) {
+      .sync-btn {
+        width: auto;
+      }
+    }
+
+    .sync-btn:active {
+      background: #fde68a;
+    }
+
+    .day-block {
+      background: #f9fafb;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 14px 12px;
+      margin-bottom: 16px;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .day-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .day-label {
+      font-weight: 900;
+      font-size: 1.15rem;
+      margin-bottom: 14px;
+      color: #111827;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .counter-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+      background: #fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+      min-width: 0;
+    }
+
+    .counter-title {
+      font-size: 1rem;
+      font-weight: 700;
+      min-width: 0;
+    }
+
+    .stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .stepper button {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 2px solid #9ca3af;
+      background: #fff;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .stepper button:active {
+      background: #fee2e2;
+      border-color: var(--primary);
+    }
+
+    .stepper span {
+      min-width: 32px;
+      text-align: center;
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: #111827;
+    }
+
+    /* 出席名單填寫區塊（大人 / 小孩 / 兒童座椅） */
+    .names-panel {
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: -4px;
+      margin-bottom: 14px;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .names-panel.adults-panel {
+      background: #fef2f2;
+      border: 2px solid #fca5a5;
+    }
+
+    .names-panel.kids-panel {
+      background: #eff6ff;
+      border: 2px solid #93c5fd;
+    }
+
+    .names-panel.chairs-panel {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+    }
+
+    .names-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .names-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+    }
+
+    .adults-panel .names-title { color: #991b1b; }
+    .kids-panel .names-title { color: #1e40af; }
+    .chairs-panel .names-title { color: #166534; }
+
+    .names-badge {
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .adults-panel .names-badge { color: #991b1b; border: 1px solid #fca5a5; }
+    .kids-panel .names-badge { color: #1e40af; border: 1px solid #93c5fd; }
+    .chairs-panel .names-badge { color: #166534; border: 1px solid #86efac; }
+
+    .names-badge.done {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+
+    .names-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 540px) {
+      .names-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .name-slot {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 6px 10px;
+      min-width: 0;
+    }
+
+    .adults-panel .name-slot { border: 1.5px solid #fca5a5; }
+    .kids-panel .name-slot { border: 1.5px solid #93c5fd; }
+    .chairs-panel .name-slot { border: 1.5px solid #86efac; }
+
+    .name-slot-num {
+      font-size: 0.85rem;
+      font-weight: 800;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .adults-panel .name-slot-num { color: #b91c1c; }
+    .kids-panel .name-slot-num { color: #1d4ed8; }
+    .chairs-panel .name-slot-num { color: #15803d; }
+
+    .name-slot input {
+      width: 100%;
+      min-width: 0;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      background: transparent;
+      padding: 4px 2px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .field-box {
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .field-box label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .field-box input,
+    .field-box select {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      padding: 12px 12px;
+      border: 2px solid #9ca3af;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .field-box input:focus,
+    .field-box select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
+    }
+
+    /* 條件展開：住宿/車位需支援名單填寫區塊 */
+    .support-roster-box {
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 10px;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .support-roster-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #92400e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .roster-input-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    @media (min-width: 520px) {
+      .roster-input-row {
+        flex-direction: row;
+      }
+    }
+
+    .roster-input-row input {
+      width: 100%;
+      flex: 1;
+      min-width: 0;
+      padding: 10px 12px;
+      border: 2px solid #d97706;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .roster-input-row input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-add-person {
+      background: #d97706;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 0.98rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    @media (min-width: 520px) {
+      .btn-add-person {
+        width: auto;
+      }
+    }
+
+    .btn-add-person:active {
+      background: #b45309;
+    }
+
+    .roster-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .roster-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 2px solid #f59e0b;
+      color: #78350f;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      max-width: 100%;
+    }
+
+    .roster-tag button {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .roster-empty-hint {
+      font-size: 0.86rem;
+      color: #92400e;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 1.5px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-copy {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(185, 28, 28, 0.25);
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111827;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 50;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="toast" class="toast">已複製</div>
+
+  <header>
+    <h1>🧨 2027 農曆初二回娘家<br>家族聚會統計表</h1>
+    <p>請先點選您所屬的家庭，再填寫晚餐與住宿需求</p>
+    <div id="connStatus" class="status-bar">⏳ 正在連線即時資料庫...</div>
+  </header>
+
+  <div class="container">
+    <!-- 主揪即時總覽 -->
+    <div class="summary-card">
+      <div class="summary-title">
+        <span>📊 全家族即時總覽</span>
+        <div class="day-tabs">
+          <button type="button" class="day-tab active" data-day="day1" onclick="switchSummaryDay('day1')">2/7 (初二)</button>
+          <button type="button" class="day-tab" data-day="day2" onclick="switchSummaryDay('day2')">2/8 (初三)</button>
+        </div>
+      </div>
+      <div id="summaryGrid" class="stats-grid"></div>
+      <div id="summaryLists" class="summary-lists"></div>
+    </div>
+
+    <!-- 各家分頁選擇器 -->
+    <div class="family-nav-section">
+      <div class="family-nav-hint">👇 第一步：請點選要填寫的家庭</div>
+      <div id="familyTabs" class="family-tabs"></div>
+    </div>
+
+    <!-- 目前選中家庭的填寫卡片 -->
+    <div id="familiesContainer"></div>
+  </div>
+
+  <div class="bottom-bar">
+    <button type="button" class="btn-copy" onclick="copyLineText()">📋 一鍵複製 LINE 統計接龍文字</button>
+  </div>
+
+  <script>
+    const DB_URL = "https://chen-family-2027-default-rtdb.asia-southeast1.firebasedatabase.app/reunion2027/families.json";
+
+    const FAMILIES = [
+      { id: "f1", short: "老大（大阿姨）", label: "🧨 老大（大阿姨家）" },
+      { id: "f2", short: "老二", label: "🧨 老二" },
+      { id: "f3", short: "老三（三阿姨）", label: "🧨 老三（三阿姨家）" },
+      { id: "f4", short: "老四（四阿姨）", label: "🧨 老四（四阿姨家）" },
+      { id: "f5", short: "老五（五阿姨）", label: "🧨 老五（五阿姨家）" },
+      { id: "f6", short: "老六（舅舅）", label: "🧨 老六（舅舅家）" }
+    ];
+
+    function emptyDay() {
+      return {
+        adults: 0,
+        kids: 0,
+        chairs: 0,
+        adultNames: [],
+        kidNames: [],
+        chairNames: [],
+        lodgingType: "未填",
+        lodgingNote: "",
+        lodgingPeople: [],
+        carType: "未填",
+        carNote: "",
+        carPeople: []
+      };
+    }
+
+    function createDefaultData() {
+      const data = {};
+      FAMILIES.forEach((f) => {
+        data[f.id] = {
+          day1: emptyDay(),
+          day2: emptyDay()
+        };
+      });
+      return data;
+    }
+
+    let stateData = createDefaultData();
+    let activeSummaryDay = "day1";
+    let activeFamilyId = "f1";
+    let isSaving = false;
+
+    function setStatus(text) {
+      const el = document.getElementById("connStatus");
+      if (el) el.textContent = text;
+    }
+
+    function normalizeDay(raw) {
+      const d = { ...emptyDay(), ...(raw || {}) };
+      d.adultNames = Array.isArray(d.adultNames) ? d.adultNames : [];
+      d.kidNames = Array.isArray(d.kidNames) ? d.kidNames : [];
+      d.chairNames = Array.isArray(d.chairNames) ? d.chairNames : [];
+      d.lodgingPeople = Array.isArray(d.lodgingPeople) ? d.lodgingPeople : [];
+      d.carPeople = Array.isArray(d.carPeople) ? d.carPeople : [];
+      return d;
+    }
+
+    function mergeData(val) {
+      const merged = createDefaultData();
+      if (val && typeof val === "object") {
+        FAMILIES.forEach((f) => {
+          if (val[f.id]) {
+            merged[f.id].day1 = normalizeDay(val[f.id].day1);
+            merged[f.id].day2 = normalizeDay(val[f.id].day2);
+          }
+        });
+      }
+      return merged;
+    }
+
+    function isUserTyping() {
+      const active = document.activeElement;
+      return active && (active.tagName === "INPUT" || active.tagName === "SELECT");
+    }
+
+    async function pullFromCloud() {
+      if (isSaving || isUserTyping()) return;
+      try {
+        const res = await fetch(DB_URL, { cache: "no-store" });
+        if (!res.ok) {
+          setStatus(`🔴 雲端讀取失敗（HTTP ${res.status}）`);
+          return;
+        }
+        const val = await res.json();
+        stateData = mergeData(val);
+        renderAll();
+        setStatus("🟢 雲端即時同步中");
+      } catch (err) {
+        setStatus(`🟡 本機／離線模式`);
+      }
+    }
+
+    async function pushToCloud() {
+      isSaving = true;
+      try {
+        const res = await fetch(DB_URL, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(stateData)
+        });
+        if (!res.ok) {
+          setStatus(`🔴 寫入雲端失敗（HTTP ${res.status}）`);
+          showToast("寫入雲端失敗，請檢查網路");
+        } else {
+          setStatus("🟢 雲端即時同步中");
+        }
+      } catch (err) {
+        setStatus("🟡 網路尚未連線，已先更新本機畫面");
+      } finally {
+        isSaving = false;
+      }
+    }
+
+    window.switchFamily = function (famId) {
+      activeFamilyId = famId;
+      renderFamilyTabs();
+      renderFamilies();
+    };
+
+    window.changeCount = function (famId, dayKey, field, delta) {
+      const d = stateData[famId][dayKey];
+      const current = Number(d[field] || 0);
+      const next = Math.max(0, current + delta);
+      d[field] = next;
+
+      const listMap = {
+        adults: "adultNames",
+        kids: "kidNames",
+        chairs: "chairNames"
+      };
+      const arrKey = listMap[field];
+      if (arrKey) {
+        if (!Array.isArray(d[arrKey])) d[arrKey] = [];
+        while (d[arrKey].length < next) {
+          d[arrKey].push("");
+        }
+      }
+
+      renderAll();
+      pushToCloud();
+    };
+
+    window.updateCategoryName = function (famId, dayKey, arrKey, countField, index, value) {
+      const d = stateData[famId][dayKey];
+      if (!Array.isArray(d[arrKey])) d[arrKey] = [];
+      d[arrKey][index] = value;
+
+      const count = Number(d[countField] || 0);
+      const filled = d[arrKey].slice(0, count).filter((n) => String(n || "").trim() !== "").length;
+      const badgeEl = document.getElementById(`badge_${famId}_${dayKey}_${arrKey}`);
+      if (badgeEl) {
+        if (filled >= count) {
+          badgeEl.textContent = "✅ 已填齊";
+          badgeEl.classList.add("done");
+        } else {
+          badgeEl.textContent = `⚠️ 尚缺 ${count - filled} 位`;
+          badgeEl.classList.remove("done");
+        }
+      }
+
+      renderSummary();
+      pushToCloud();
+    };
+
+    window.updateField = function (famId, dayKey, field, value) {
+      stateData[famId][dayKey][field] = value;
+      renderAll();
+      pushToCloud();
+    };
+
+    window.addSupportPerson = function (famId, dayKey, listField) {
+      const inputId = `${famId}_${dayKey}_${listField}_input`;
+      const inputEl = document.getElementById(inputId);
+      if (!inputEl) return;
+      const raw = inputEl.value.trim();
+      if (!raw) {
+        showToast("請先輸入姓名再新增");
+        return;
+      }
+
+      const names = raw.split(/[、,，\s]+/).map((s) => s.trim()).filter(Boolean);
+      const targetList = stateData[famId][dayKey][listField] || [];
+      names.forEach((name) => {
+        if (!targetList.includes(name)) {
+          targetList.push(name);
+        }
+      });
+      stateData[famId][dayKey][listField] = targetList;
+      inputEl.value = "";
+      renderAll();
+      pushToCloud();
+      showToast(`已新增：${names.join("、")}`);
+    };
+
+    window.handleRosterKeydown = function (event, famId, dayKey, listField) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        window.addSupportPerson(famId, dayKey, listField);
+      }
+    };
+
+    window.removeSupportPerson = function (famId, dayKey, listField, index) {
+      const targetList = stateData[famId][dayKey][listField] || [];
+      targetList.splice(index, 1);
+      stateData[famId][dayKey][listField] = targetList;
+      renderAll();
+      pushToCloud();
+    };
+
+    window.copyDay1ToDay2 = function (famId) {
+      stateData[famId].day2 = JSON.parse(JSON.stringify(stateData[famId].day1));
+      renderAll();
+      pushToCloud();
+      showToast("✅ 已將初二設定與名單複製到初三！");
+    };
+
+    window.switchSummaryDay = function (dayKey) {
+      activeSummaryDay = dayKey;
+      document.querySelectorAll(".day-tab").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.day === dayKey);
+      });
+      renderSummary();
+    };
+
+    function getActiveNames(arr, count) {
+      return (arr || []).slice(0, Number(count || 0)).map((s) => String(s || "").trim()).filter(Boolean);
+    }
+
+    function renderSummary() {
+      let totalAdults = 0;
+      let totalKids = 0;
+      let totalChairs = 0;
+      let lodgingNeedCount = 0;
+      let carNeedCount = 0;
+
+      const dinnerLines = [];
+      const lodgingLines = [];
+      const carLines = [];
+      let totalLodgingPeople = 0;
+      let totalCarPeople = 0;
+
+      FAMILIES.forEach((f) => {
+        const d = stateData[f.id][activeSummaryDay];
+        const aCnt = Number(d.adults || 0);
+        const kCnt = Number(d.kids || 0);
+        const cCnt = Number(d.chairs || 0);
+
+        totalAdults += aCnt;
+        totalKids += kCnt;
+        totalChairs += cCnt;
+
+        if (aCnt + kCnt + cCnt > 0) {
+          const aNames = getActiveNames(d.adultNames, aCnt);
+          const kNames = getActiveNames(d.kidNames, kCnt);
+          const cNames = getActiveNames(d.chairNames, cCnt);
+
+          const parts = [];
+          if (aCnt > 0) parts.push(`大人${aCnt}（${aNames.length ? aNames.join("、") : "未填名"}）`);
+          if (kCnt > 0) parts.push(`小孩${kCnt}（${kNames.length ? kNames.join("、") : "未填名"}）`);
+          if (cCnt > 0) parts.push(`兒椅${cCnt}（${cNames.length ? cNames.join("、") : "未填名"}）`);
+
+          dinnerLines.push(`<div class="summary-list-item">• <strong>${f.short}</strong>：${parts.join("；")}</div>`);
+        }
+
+        if (d.lodgingType === "需要安排") {
+          lodgingNeedCount += 1;
+          const names = d.lodgingPeople || [];
+          totalLodgingPeople += names.length;
+          const nameStr = names.length > 0 ? names.join("、") : "尚未填寫名單";
+          const noteStr = d.lodgingNote ? `（${escapeHtml(d.lodgingNote)}）` : "";
+          lodgingLines.push(`<div class="summary-list-item">• <strong>${f.short}</strong>：${escapeHtml(nameStr)}${noteStr}</div>`);
+        }
+
+        if (d.carType === "需要車位") {
+          carNeedCount += 1;
+          const names = d.carPeople || [];
+          totalCarPeople += names.length;
+          const nameStr = names.length > 0 ? names.join("、") : "尚未填寫名單";
+          const noteStr = d.carNote ? `（${escapeHtml(d.carNote)}）` : "";
+          carLines.push(`<div class="summary-list-item">• <strong>${f.short}</strong>：${escapeHtml(nameStr)}${noteStr}</div>`);
+        }
+      });
+
+      const totalPeople = totalAdults + totalKids;
+      const suggestedTables = totalPeople === 0 ? 0 : Math.ceil(totalPeople / 10);
+
+      document.getElementById("summaryGrid").innerHTML = `
+        <div class="stat-box">
+          <div class="stat-label">晚餐總人數</div>
+          <div class="stat-value">${totalPeople} 位</div>
+          <div class="stat-sub">${totalAdults} 大 ${totalKids} 小</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">兒童座椅／桌數</div>
+          <div class="stat-value">${totalChairs} 張</div>
+          <div class="stat-sub">約 ${suggestedTables} 桌（10人/桌）</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">需安排住宿</div>
+          <div class="stat-value">${lodgingNeedCount} 戶</div>
+          <div class="stat-sub">已登記 ${totalLodgingPeople} 人</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">需安排車位</div>
+          <div class="stat-value">${carNeedCount} 戶</div>
+          <div class="stat-sub">已登記 ${totalCarPeople} 人</div>
+        </div>
+      `;
+
+      document.getElementById("summaryLists").innerHTML = `
+        <div class="summary-list-box dinner-box">
+          <div class="summary-list-title">🍽️ 當日晚餐出席名單（共 ${totalPeople} 位＋${totalChairs} 張兒椅）</div>
+          ${dinnerLines.length > 0 ? dinnerLines.join("") : '<div class="summary-list-empty">目前尚未登記晚餐出席人數</div>'}
+        </div>
+        <div class="summary-list-box">
+          <div class="summary-list-title">🏠 當日需安排住宿名單（共 ${totalLodgingPeople} 位）</div>
+          ${lodgingLines.length > 0 ? lodgingLines.join("") : '<div class="summary-list-empty">目前無需安排住宿人員</div>'}
+        </div>
+        <div class="summary-list-box">
+          <div class="summary-list-title">🚗 當日需支援車位名單（共 ${totalCarPeople} 位）</div>
+          ${carLines.length > 0 ? carLines.join("") : '<div class="summary-list-empty">目前無需支援車位人員</div>'}
+        </div>
+      `;
+    }
+
+    function renderFamilyTabs() {
+      const tabsContainer = document.getElementById("familyTabs");
+      tabsContainer.innerHTML = FAMILIES.map((f) => {
+        const d1Total = Number(stateData[f.id].day1.adults || 0) + Number(stateData[f.id].day1.kids || 0);
+        const d2Total = Number(stateData[f.id].day2.adults || 0) + Number(stateData[f.id].day2.kids || 0);
+        const isActive = f.id === activeFamilyId;
+        return `
+          <button type="button" class="family-tab-btn ${isActive ? "active" : ""}" onclick="switchFamily('${f.id}')">
+            ${f.short}
+            <span class="family-tab-sub">初二 ${d1Total}人 / 初三 ${d2Total}人</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderSupportRoster(famId, dayKey, listField, titleText, placeholderText) {
+      const list = stateData[famId][dayKey][listField] || [];
+      const inputId = `${famId}_${dayKey}_${listField}_input`;
+
+      const tagsHtml = list.length > 0
+        ? `<div class="roster-tags">
+            ${list.map((person, idx) => `
+              <span class="roster-tag">
+                ${escapeHtml(person)}
+                <button type="button" title="移除" onclick="removeSupportPerson('${famId}','${dayKey}','${listField}',${idx})">✕</button>
+              </span>
+            `).join("")}
+          </div>`
+        : `<div class="roster-empty-hint">尚未新增名單，請輸入姓名後點選「＋ 新增人員」</div>`;
+
+      return `
+        <div class="support-roster-box">
+          <div class="support-roster-title">
+            <span>✍️ ${titleText}（已填 ${list.length} 位）</span>
+          </div>
+          <div class="roster-input-row">
+            <input type="text" id="${inputId}" placeholder="${placeholderText}" onkeydown="handleRosterKeydown(event,'${famId}','${dayKey}','${listField}')" />
+            <button type="button" class="btn-add-person" onclick="addSupportPerson('${famId}','${dayKey}','${listField}')">＋ 新增人員</button>
+          </div>
+          ${tagsHtml}
+        </div>
+      `;
+    }
+
+    function renderCategoryNamesPanel(famId, dayKey, countField, arrKey, panelClass, titleText, slotPrefix, placeholderText) {
+      const d = stateData[famId][dayKey];
+      const count = Number(d[countField] || 0);
+      if (count <= 0) return "";
+
+      const names = Array.isArray(d[arrKey]) ? d[arrKey] : [];
+      const filled = names.slice(0, count).filter((n) => String(n || "").trim() !== "").length;
+      const isDone = filled >= count;
+      const badgeId = `badge_${famId}_${dayKey}_${arrKey}`;
+
+      const slots = [];
+      for (let i = 0; i < count; i++) {
+        const val = names[i] || "";
+        slots.push(`
+          <div class="name-slot">
+            <span class="name-slot-num">${slotPrefix} ${i + 1}</span>
+            <input type="text" value="${escapeHtml(val)}" placeholder="${placeholderText}" oninput="updateCategoryName('${famId}','${dayKey}','${arrKey}','${countField}',${i},this.value)" />
+          </div>
+        `);
+      }
+
+      return `
+        <div class="names-panel ${panelClass}">
+          <div class="names-header">
+            <span class="names-title">${titleText}（共 ${count} 位）</span>
+            <span id="${badgeId}" class="names-badge ${isDone ? "done" : ""}">${isDone ? "✅ 已填齊" : `⚠️ 尚缺 ${count - filled} 位`}</span>
+          </div>
+          <div class="names-grid">
+            ${slots.join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDayBlock(famId, dayKey, dayTitle) {
+      const d = stateData[famId][dayKey];
+      const showLodgingRoster = d.lodgingType === "需要安排";
+      const showCarRoster = d.carType === "需要車位";
+
+      return `
+        <div class="day-block">
+          <div class="day-label">${dayTitle}</div>
+
+          <!-- 大人人數 + 獨立大人名單 -->
+          <div class="counter-row">
+            <span class="counter-title">晚餐－大人</span>
+            <div class="stepper">
+              <button type="button" onclick="changeCount('${famId}','${dayKey}','adults',-1)">－</button>
+              <span>${d.adults}</span>
+              <button type="button" onclick="changeCount('${famId}','${dayKey}','adults',1)">＋</button>
+            </div>
+          </div>
+          ${renderCategoryNamesPanel(famId, dayKey, "adults", "adultNames", "adults-panel", "👨 大人出席名單", "大人", "輸入大人姓名")}
+
+          <!-- 小孩人數 + 獨立小孩名單 -->
+          <div class="counter-row">
+            <span class="counter-title">晚餐－小孩（坐一般椅）</span>
+            <div class="stepper">
+              <button type="button" onclick="changeCount('${famId}','${dayKey}','kids',-1)">－</button>
+              <span>${d.kids}</span>
+              <button type="button" onclick="changeCount('${famId}','${dayKey}','kids',1)">＋</button>
+            </div>
+          </div>
+          ${renderCategoryNamesPanel(famId, dayKey, "kids", "kidNames", "kids-panel", "🧒 小孩出席名單", "小孩", "輸入小孩姓名")}
+
+          <!-- 兒童座椅數量 + 獨立兒童座椅名單（無帶入按鈕） -->
+          <div class="counter-row">
+            <span class="counter-title">晚餐－兒童座椅（不佔一般椅）</span>
+            <div class="stepper">
+              <button type="button" onclick="changeCount('${famId}','${dayKey}','chairs',-1)">－</button>
+              <span>${d.chairs}</span>
+              <button type="button" onclick="changeCount('${famId}','${dayKey}','chairs',1)">＋</button>
+            </div>
+          </div>
+          ${renderCategoryNamesPanel(famId, dayKey, "chairs", "chairNames", "chairs-panel", "🪑 兒童座椅名單", "座椅", "輸入寶寶姓名（例：小寶）")}
+
+          <div class="field-grid">
+            <div class="field-box">
+              <label>🏠 住宿狀態</label>
+              <select onchange="updateField('${famId}','${dayKey}','lodgingType',this.value)">
+                <option value="未填" ${d.lodgingType === "未填" ? "selected" : ""}>未填</option>
+                <option value="自理" ${d.lodgingType === "自理" ? "selected" : ""}>自理</option>
+                <option value="需要安排" ${d.lodgingType === "需要安排" ? "selected" : ""}>需要安排</option>
+                <option value="可提供" ${d.lodgingType === "可提供" ? "selected" : ""}>可提供</option>
+              </select>
+              ${showLodgingRoster ? renderSupportRoster(famId, dayKey, "lodgingPeople", "需安排住宿人員名單", "輸入姓名，例：大阿姨、表妹") : ""}
+            </div>
+
+            <div class="field-box">
+              <label>🏠 住宿補充（幾大幾小／房型）</label>
+              <input type="text" value="${escapeHtml(d.lodgingNote)}" placeholder="例：需2大1小 或 提供四樓" oninput="updateField('${famId}','${dayKey}','lodgingNote',this.value)" />
+            </div>
+
+            <div class="field-box">
+              <label>🚗 汽車座位狀態</label>
+              <select onchange="updateField('${famId}','${dayKey}','carType',this.value)">
+                <option value="未填" ${d.carType === "未填" ? "selected" : ""}>未填</option>
+                <option value="自理" ${d.carType === "自理" ? "selected" : ""}>自理</option>
+                <option value="需要車位" ${d.carType === "需要車位" ? "selected" : ""}>需要車位</option>
+                <option value="可支援" ${d.carType === "可支援" ? "selected" : ""}>可支援</option>
+              </select>
+              ${showCarRoster ? renderSupportRoster(famId, dayKey, "carPeople", "需支援車位人員名單", "輸入姓名，例：三阿姨、表弟") : ""}
+            </div>
+
+            <div class="field-box">
+              <label>🚗 車位補充（缺幾位／可載幾人）</label>
+              <input type="text" value="${escapeHtml(d.carNote)}" placeholder="例：缺2位 或 可多載3人" oninput="updateField('${famId}','${dayKey}','carNote',this.value)" />
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFamilies() {
+      const container = document.getElementById("familiesContainer");
+      const currentFam = FAMILIES.find((f) => f.id === activeFamilyId) || FAMILIES[0];
+      container.innerHTML = `
+        <div class="family-card">
+          <div class="family-header">
+            <div class="family-name">${currentFam.label}</div>
+            <button type="button" class="sync-btn" onclick="copyDay1ToDay2('${currentFam.id}')">⚡ 點此讓 2/8 同 2/7 設定</button>
+          </div>
+          ${renderDayBlock(currentFam.id, "day1", "📅 2/7（初二）")}
+          ${renderDayBlock(currentFam.id, "day2", "📅 2/8（初三）")}
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      renderSummary();
+      renderFamilyTabs();
+      renderFamilies();
+    }
+
+    function formatDayLine(dayLabel, d) {
+      const aCnt = Number(d.adults || 0);
+      const kCnt = Number(d.kids || 0);
+      const cCnt = Number(d.chairs || 0);
+      const total = aCnt + kCnt;
+
+      const aNames = getActiveNames(d.adultNames, aCnt);
+      const kNames = getActiveNames(d.kidNames, kCnt);
+      const cNames = getActiveNames(d.chairNames, cCnt);
+
+      const dinnerDetails = [];
+      if (aCnt > 0) dinnerDetails.push(`大人${aCnt}${aNames.length ? `[${aNames.join("、")}]` : ""}`);
+      if (kCnt > 0) dinnerDetails.push(`小孩${kCnt}${kNames.length ? `[${kNames.join("、")}]` : ""}`);
+      if (cCnt > 0) dinnerDetails.push(`兒椅${cCnt}${cNames.length ? `[${cNames.join("、")}]` : ""}`);
+      const dinnerText = dinnerDetails.length > 0 ? `（${dinnerDetails.join("／")}）` : "";
+
+      const lodgingExtra = [];
+      if (d.lodgingType === "需要安排" && (d.lodgingPeople || []).length > 0) {
+        lodgingExtra.push(`名單：${d.lodgingPeople.join("、")}`);
+      }
+      if (d.lodgingNote) lodgingExtra.push(d.lodgingNote);
+      const lodgingText = lodgingExtra.length > 0 ? `${d.lodgingType}（${lodgingExtra.join("；")}）` : d.lodgingType;
+
+      const carExtra = [];
+      if (d.carType === "需要車位" && (d.carPeople || []).length > 0) {
+        carExtra.push(`名單：${d.carPeople.join("、")}`);
+      }
+      if (d.carNote) carExtra.push(d.carNote);
+      const carText = carExtra.length > 0 ? `${d.carType}（${carExtra.join("；")}）` : d.carType;
+
+      return `* ${dayLabel}：晚餐 ${total}位${dinnerText}｜住宿：${lodgingText}｜車位：${carText}`;
+    }
+
+    window.copyLineText = function () {
+      const lines = ["📋 2027 初二回娘家統計彙整", ""];
+      FAMILIES.forEach((f) => {
+        const d1 = stateData[f.id].day1;
+        const d2 = stateData[f.id].day2;
+        lines.push(`**${f.label}**`);
+        lines.push(formatDayLine("2/7 初二", d1));
+        lines.push(formatDayLine("2/8 初三", d2));
+        lines.push("");
+      });
+      navigator.clipboard.writeText(lines.join("
+")).then(() => {
+        showToast("✅ 已複製 LINE 統計接龍文字");
+      }).catch(() => {
+        showToast("複製失敗，請手動選取文字");
+      });
+    };
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2500);
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    renderAll();
+    pullFromCloud();
+    setInterval(pullFromCloud, 4000);
+  </script>
+</body>
+</html>
